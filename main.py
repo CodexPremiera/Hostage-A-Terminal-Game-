@@ -9,3 +9,4 @@ sniper = characters.sniper
 
 # POST NEGOTIATION
 player.decide_to_use_gun()
+
