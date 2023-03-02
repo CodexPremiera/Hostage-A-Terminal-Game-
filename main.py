@@ -4,8 +4,8 @@ import random
 
 # FUNCTIONS
 def probability(rate=0):
-    rate = rate/10
-    return random.randint(0,10) < rate
+    rate = rate / 10
+    return random.randint(0, 10) < rate
 
 
 # CLASSES
@@ -110,7 +110,7 @@ class Player:
         self.name = name
         self.has_gun = True
         self.is_alive = True
-        self.distance = 2
+        self.distance = 20
 
     # METHODS
     def got_killed(self):
@@ -121,6 +121,11 @@ class Player:
         print(f"{self.name} shot the kidnapper.")
         kidnapper.got_killed()
         victim.got_saved()
+
+    def pointed_gun_kidnapper(self):
+        print(f"{self.name} pointed the gun to the kidnapper.")
+        kidnapper.mercy -= 10
+        print(f'{self.name} (to the kidnapper): "Drop your gun and release the hostage! Else, I will shoot you!"')
 
     # Rush Actions
     def tackled_kidnapper(self):
@@ -170,13 +175,70 @@ class Player:
             self.rush_kidnapper()
         else:
             kidnapper.decide_victim_fate()
-            pass
 
     # Shoot-out Actions
     def misses_shot(self):
         print(f"{self.name} missed shot on the kidnapper.")
         kidnapper.shoots_player()
         kidnapper.shoots_victim()
+
+    def execute_kidnapper(self):
+        # establish the probability based distance
+        factor = self.distance
+        if factor <= 5:
+            chance = 80
+        elif 5 < factor < 15:
+            chance = 100 * ((4 - factor) / 4)
+            chance = int(chance)
+        else:
+            chance = 20
+        # use probability to determine execution success
+        if probability(chance):
+            self.shoots_kidnapper()
+        else:
+            self.misses_shot()
+
+    def decide_to_execute_or_intimidate(self):
+        # ask player whether to execute or intimidate kidnapper
+        decision = input("Execute or intimidate kidnapper? (Y/N) ")
+        decision = decision.upper()
+        while not ((decision == 'Y') or (decision == 'N')):
+            decision = input("Please try again. Valid inputs are only 'Y' or 'N': ")
+            decision = decision.upper()
+        # proceed to execute or not based on player decision
+        if decision == 'Y':
+            self.execute_kidnapper()
+        else:
+            self.pointed_gun_kidnapper()
+            self.decide_to_execute_or_passive()
+
+    def decide_to_execute_or_passive(self):
+        # ask player whether to execute kidnapper or let kidnapper decide
+        decision = input("Execute kidnapper or let him decide the victim's fate? (Y/N) ")
+        decision = decision.upper()
+        while not ((decision == 'Y') or (decision == 'N')):
+            decision = input("Please try again. Valid inputs are only 'Y' or 'N': ")
+            decision = decision.upper()
+        # proceed to execute or alternatively based on player decision
+        if decision == 'Y':
+            self.execute_kidnapper()
+        else:
+            kidnapper.decide_victim_fate()
+
+    def decide_to_use_gun(self):
+        # ask player whether to use gun or not
+        if not self.has_gun:
+            return
+        decision = input("Use your gun? (Y/N) ")
+        decision = decision.upper()
+        while not ((decision == 'Y') or (decision == 'N')):
+            decision = input("Please try again. Valid inputs are only 'Y' or 'N': ")
+            decision = decision.upper()
+        # proceed to use gun or not
+        if decision == 'Y':
+            self.decide_to_execute_or_intimidate()
+        else:
+            self.decide_to_rush()
 
 
 class Sniper:
@@ -195,4 +257,4 @@ victim = Victim('Annie')
 player = Player('You')
 sniper = Sniper('The Sniper')
 
-player.decide_to_rush()
+player.decide_to_use_gun()
