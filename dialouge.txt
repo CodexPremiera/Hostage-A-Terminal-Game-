@@ -1,0 +1,292 @@
+HOSTAGE SCRIPT
+
+----------
+CHARACTERS:
+Berthold    :   An armed man holding a girl in hostage. He is his hostage's boyfriend. He is frustrated because
+                her lover, Annie, cheated on him despite all the love and affection he gave. He is taking Annie
+                hostage as act of desperation.
+Annie       :   The hostage and Berthold's lover. She cheated on Berthold because, as she claims, she simply
+                couldn't bring herself to love him.
+Negotiator  :   An negotiator from the police tasked with saving the hostage at all cost.
+
+--------------------
+SCRIPT:
+
+
+-----
+ACT 1: THE BRIEFING
+
+One late evening, you arrive at an office at the top floor of a high rise residential building.
+The police approached you.
+
+                    POLICE OFFICER
+            """ Good evening sir! We have a hostage situation happening outside of this room. A man is holding his
+            girlfriend at gunpoint. We already have the snipers in position. However, we can't risk shooting the man.
+            If we miss, the girl can get shot.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ Why would he do that? What are his motives?
+            """
+
+                    POLICE OFFICER
+            """ We ask their neighbors and friends sir. All them says that the man loves the girl. But the girl is
+            not exactly faithful. She had countless affairs in the past but the man always seems to forgive. However,
+            tonight, the man once again caught her cheating with another man. Perhaps, that was the last straw that
+            finally broke the camel's back.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ I see. Where is this other man whom you say the girl cheats with?
+            """
+
+                    POLICE OFFICER
+            """ He is dead sir. The man shot him on the spot.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ Any other casualties?
+            """
+
+                    POLICE OFFICER
+            """ Well sir, he has also already killed two of our responding policemen. He also killed two
+            civilians and wounded one. That wounded one is currently outside where the hostage is happening.
+            It's a teenage boy. He needs urgent medical attention, but it is too dangerous to approach.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ That's unfortunate. It seems the man is really twisted right now.
+            """
+
+                    POLICE OFFICER
+            """ I agree sir. But we still need to save the girl at all cost.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ I know. Do you have their names?
+            """
+
+                    POLICE OFFICER
+            """ Yes sir, the man's name is Berthold, and the girl's is Annie.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ That is all I need. Thank you.
+            """
+
+-----
+MISSION: Gain Berthold's trust. Save the girl at all cost.
+-----
+
+--------------------
+ACT 2: GOING TO THE SCENE
+
+You went outside the office and slowly approached the scene. Berthold, the hostage taker, sees you.
+
+                    BERTHOLD
+                    (shoots a gun)
+            [BANG!]
+
+The bullet barely missed you. You stopped on your spot
+
+                    BERTHOLD
+            """(to you): STAY BACK! Don't come any closer, or I'll shoot her.
+            """
+
+                    ANNIE
+                    (afraid and crying)
+            """(to Berthold): NO Berthold, please! I'm begging you!
+            """
+            """(to You): Please sir. Save me!
+            """
+
+
+-----
+CHOICE: 1= Obey and Stop, 2= Ignore and Continue walking.
+
+If 1, Distance +5, Mercy -5
+Else if 2, Distance +0, Mercy +0
+
+CHOICE: 1= Say his name
+
+                    NEGOTIATOR (YOU)
+            """ Hello Berthold. My name is {player.name}. I am a trained negotiator.
+            """
+
+                    BERTHOLD
+            """ How... how do you know my name?
+            """
+
+                    NEGOTIATOR (YOU)
+            """ I know a lot of things about you Berthold. I've come to help you out of this.
+            """
+
+
+-----
+CHOICE: 1= Make him calm, 2= Ask to release hostage, 3= Reassure Berthold
+
+If 1: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ I know you are angry Berthold. But I need you to calm down and let me help you.
+            """
+
+                    BERTHOLD
+            """ I don't need your help. Nobody can help me now. I JUST WANT ALL FOR THIS TO STOP!
+            """
+
+
+If 2: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ I need you to let her go Berthold. That is the only way this can end.
+            """
+
+                    BERTHOLD
+            """ I am not stupid! I know you are going to shoot me the moment I release her.
+            This is how this ends. EITHER I DIE, OR WE BOTH DIE!
+            """
+
+If 3: Mercy +5
+                    NEGOTIATOR (YOU)
+            """ I'm not going to hurt you. I just want to talk and find a solution.
+            """
+
+                    BERTHOLD
+            """ Talk!? I don't want to talk. It's too late for that now. IT'S TOO LATE!
+            """
+
+
+-----
+You see the wounded civilian the police officer told you about. He is lying down at a corner between you and
+Berthold. You slowly walked towards him while answering Berthold's question.
+
+
+CHOICE: 1= Lie and keep the gun, 2= Confess and drop the gun
+
+If 1: Mercy +5
+                    BERTHOLD
+            """ Are you armed?
+            """
+
+                    NEGOTIATOR (YOU)
+            """ Yes. I have a gun right now.
+            """
+
+                    BERTHOLD
+            """ DROP IT! No sudden moves or I'll shoot.
+            """
+
+                    NEGOTIATOR (YOU)
+                    (Drops the gun)
+            """ There. I don't have a gun anymore.
+            """
+
+
+If 2: Mercy -5
+                    BERTHOLD
+            """ Are you armed?
+            """
+
+                    NEGOTIATOR (YOU)
+            """ No. I don't have a gun.
+            """
+
+                    BERTHOLD
+            """ YOU'RE LYING! I know you have a gun.
+            """
+
+                    NEGOTIATOR (YOU)
+            """ I'm telling you the truth Berthold. I came here unarmed.
+            """
+
+
+
+--------------------
+ACT 3: THE WOUNDED BOY
+
+You arrived at the spot where the wounded boy is lying down. He is still alive but is losing a lot of blood.
+
+                    NEGOTIATOR (YOU)
+            """(to Berthold): He is losing blood. We must bring him to the hospital or else he will die.
+            """
+
+                    BERTHOLD
+            """ We all die eventually. What does it matter if that one dies right now?
+            """
+
+                    NEGOTIATOR (YOU)
+            """I am going to do a quick bondage on him.
+            """
+
+                     BERTHOLD
+                    (shoots a gun)
+            [BANG!]
+
+The bullet barely missed you. You stopped on your spot
+
+                    BERTHOLD
+            """ Don't touch him! Touch him and I will kill you!
+            """
+
+-----
+CHOICE: 1= Obey and Stop, 2= Ignore and Continue walking.
+
+If 1: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ He is only a boy Berthold. I can't just let him die.
+
+            (You proceed to bondage the boy and control his bleed.)
+            (You gone up and continue getting closer to Berthold while talking ot him.)
+            """
+
+If 3: Mercy +5
+                    NEGOTIATOR (YOU)
+            """ Okay. I'll do what you want.
+
+            (You gone up and continue getting closer to Berthold while talking ot him.)
+            """
+
+--------------------
+ACT 4: CONTINUE NEGOTIATING
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
