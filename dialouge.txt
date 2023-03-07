@@ -20,28 +20,18 @@ One late evening, you arrive at an office at the top floor of a high rise reside
 The police approached you.
 
                     POLICE OFFICER
-            """ Good evening sir! We have a hostage situation happening outside of this room. A man is holding his
-            girlfriend at gunpoint. We already have the snipers in position. However, we can't risk shooting the man.
-            If we miss, the girl can get shot.
+            """ Good evening sir! We have a hostage situation happening at the outdoor lounge at the rooftop of
+            this building. A man is holding his girlfriend at gunpoint. We already have the snipers in position.
+            However, we can't risk shooting the man. If we miss, the girl can get shot.
             """
 
                     NEGOTIATOR (YOU)
-            """ Why would he do that? What are his motives?
+            """ Do you know his motives?
             """
 
                     POLICE OFFICER
-            """ We ask their neighbors and friends sir. All them says that the man loves the girl. But the girl is
-            not exactly faithful. She had countless affairs in the past but the man always seems to forgive. However,
-            tonight, the man once again caught her cheating with another man. Perhaps, that was the last straw that
-            finally broke the camel's back.
-            """
-
-                    NEGOTIATOR (YOU)
-            """ I see. Where is this other man whom you say the girl cheats with?
-            """
-
-                    POLICE OFFICER
-            """ He is dead sir. The man shot him on the spot.
+            """ We have no clue sir. But we did find a dead man in their room. Apparently, he was shot.
+            We suspect this has something to do about their relationship.
             """
 
                     NEGOTIATOR (YOU)
@@ -122,20 +112,16 @@ CHOICE: 1= Say his name
             """
 
 
+--------------------
+ACT 3: FIRST NEGOTIATIONS
+
 -----
-CHOICE: 1= Make him calm, 2= Ask to release hostage, 3= Reassure Berthold
-
-If 1: Mercy +0
-                    NEGOTIATOR (YOU)
-            """ I know you are angry Berthold. But I need you to calm down and let me help you.
-            """
-
-                    BERTHOLD
-            """ I don't need your help. Nobody can help me now. I JUST WANT ALL FOR THIS TO STOP!
-            """
+CHOICE: 1= DEMAND, 2= TALK TO VICTIM,
+        3= CALMING, 4= REASSURE,
+        5= REALISTIC, 6= INSANITY
 
 
-If 2: Mercy -5
+If 1= DEMAND: Mercy +0
                     NEGOTIATOR (YOU)
             """ I need you to let her go Berthold. That is the only way this can end.
             """
@@ -145,13 +131,60 @@ If 2: Mercy -5
             This is how this ends. EITHER I DIE, OR WE BOTH DIE!
             """
 
-If 3: Mercy +5
+
+If 2= TALK TO VICTIM: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ (to Annie): Are you okay Annie?
+            """
+                    ANNIE
+                    (afraid and crying)
+            """ (to You): Please, help me. I don't want to die!
+            """
+
+                    NEGOTIATOR (YOU)
+            """ (to Annie): Nobody is going to die. Stay calm. Everything is going to be fine.
+            """
+
+If 3= CALMING: Mercy +5
+                    NEGOTIATOR (YOU)
+            """ I need you to calm down, Berthold. Let me help you and everything will be okay.
+            """
+
+                    BERTHOLD
+            """ I don't need your help. Nobody can help me now. JUST LEAVE ME ALONE AND I'LL END THIS.
+            """
+
+If 4= REASSURE: Mercy +5
                     NEGOTIATOR (YOU)
             """ I'm not going to hurt you. I just want to talk and find a solution.
             """
 
                     BERTHOLD
             """ Talk!? I don't want to talk. It's too late for that now. IT'S TOO LATE!
+            """
+
+If 5= REALISTIC: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ There's no way out Berthold. What you have done is too serious. The only question is whether
+            you take another life.
+            """
+
+                    BERTHOLD
+            """ It's not up to you. I'm holding all the cards.
+            (Points the gun at Annie)
+            IF I DIE, SHE DIES! You hear me?
+            """
+
+If 6= INSANITY: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ I know you are in distress Berthold. You are not in your right mind. We are going to
+            find you a doctor and everything will be fine.
+            """
+
+                    BERTHOLD
+            """ I DON'T NEED TO BE CURED! I am thinking perfectly. But my eyes are open now.
+            (Points the gun at Annie)
+            I won't let anyone hurt me again. EVER!
             """
 
 
@@ -199,9 +232,8 @@ If 2: Mercy -5
             """
 
 
-
 --------------------
-ACT 3: THE WOUNDED BOY
+ACT 4: THE WOUNDED BOY
 
 You arrived at the spot where the wounded boy is lying down. He is still alive but is losing a lot of blood.
 
@@ -235,39 +267,144 @@ If 1: Mercy -5
             """ He is only a boy Berthold. I can't just let him die.
 
             (You proceed to bondage the boy and control his bleed.)
-            (You gone up and continue getting closer to Berthold while talking ot him.)
+            (You have gone up and continue getting closer to Berthold while talking ot him.)
             """
 
 If 3: Mercy +5
                     NEGOTIATOR (YOU)
             """ Okay. I'll do what you want.
 
-            (You gone up and continue getting closer to Berthold while talking ot him.)
+            (You have gone up and continue getting closer to Berthold while talking ot him.)
             """
+
 
 --------------------
 ACT 4: CONTINUE NEGOTIATING
 
+-----
+CHOICE: 1= DEMAND, 2= TALK TO VICTIM,
+        3= CALMING, 4= REASSURE,
+        5= REALISTIC, 6= INSANITY
+
+-----
+CHOICE FIND CAUSE: 1= ASK FOR CAUSE, 2= THAT MAN
+
+
+If 1= ASK FOR CAUSE: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ I know Annie is your girlfriend Berthold. Why are you doing this to her?
+            """
+
+                    BERTHOLD
+            """ I love her. You know? More than anything in this world.  We've been together for two years now.
+            And I did everything for her. BUT SHE HAS NEVER LOVED ME BACK. SHE HAD GIVEN ME NOTHING BUT PAIN
+            AND FALSE HOPES. But tonight, all of that is about to change.
+            """
+
+                    ANNIE
+                    (afraid and crying)
+            """(to Berthold): Berthold, please! I'm sorry! I know I made a mistake. But please, I promise,
+            I won't hurt you ever again.
+            """
+
+                     BERTHOLD
+            """ Don't worry Annie. I'll make sure you would never hurt me again.
+            """
+
+If 2= THAT MAN: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ We found a dead man in your room. You shot him, didn't you? What does he have to do with all this?
+            """
+
+                    BERTHOLD
+            """ That son of a b**** is my girlfriend's latest affair. Throughout our relationship, I have caught
+            her cheating several times. But I have always been forgiving to her. I was hoping that she will change
+            eventually. BUT SHE ONLY TOOK ADVANTAGE OF MY KINDNESS.
+            """
+
+                    ANNIE
+                    (afraid and crying)
+            """(to Berthold): Berthold, please! Just let me go. We can start over again. Just give me a chance.
+
+                     BERTHOLD
+            """ I've had enough of your excuses and promises, Annie. I am tired of all the pain. You could never
+            fool me again. NEVER!
+            """
+
+-----
+CHOICE EMOTIONS: 1= SYMPATHETIC, 2= BLAMING, 3= END THIS
+
+If 1= SYMPATHETIC: Mercy +5
+                    NEGOTIATOR (YOU)
+            """ Listen. I know it is not your fault. You're just doing this because of your pain and anger.
+            """
+
+                    BERTHOLD
+            """ No, it is not my fault. I never wanted this. I wanted to have a life with her forever.
+            BUT I WAS NOTHING TO HER!
+            """
+
+If 2= BLAMING: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ Do you think this will solve your problem? Look at what you did. You have killed a lot of people
+            Berthold.
+            """
+
+                    BERTHOLD
+            """ I did not mean to hurt them. This is only about me and her. All of these is her fault.
+            """
+
+If 1= END THIS: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ Violence is not the answer Berthold. It is not too late. You can still end this.
+            """
+
+                    BERTHOLD
+            """ It is too late for that now. I JUST WANT ALL FOR THIS TO STOP! And death is the only way.
+            """
 
 
 
+--------------------
+ACT 5: FINAL NEGOTIATION
+
+-----
+CHOICE: 1= LAST CHANCE, 2= TRUST, 3= RATIONAL
 
 
+If 1= LAST CHANCE: Mercy +0
+                    NEGOTIATOR (YOU)
+            """ I'm your last chance Berthold. If you let it slip, they'll kill you.
+            Let the hostage go. You have no other choice.
+            """
 
+If 2= TRUST: Mercy +5
+                    NEGOTIATOR (YOU)
+            """ You have to trust me Berthold. Let the hostage go and I promise everything will be fine.
+            """
 
+If 3= RATIONAL: Mercy -5
+                    NEGOTIATOR (YOU)
+            """ Listen. There are snipers on every roof. Let the hostage go. You have no other choice.
+            """
 
+Response:
+                     BERTHOLD
+            """ I want everyone to leave... And I want a car. When I'm far enough, I'll let her go.
+            """
 
+-----
+CHOICE: 1= COMPROMISE, 2= REFUSE
 
+If 1= COMPROMISE:
+                    NEGOTIATOR (YOU)
+            """ That is impossible Berthold. Let Annie go and I promise, you won't be hurt.
+            """
 
-
-
-
-
-
-
-
-
-
+If 2= REFUSE:
+                    NEGOTIATOR (YOU)
+            """ That is out of the question. Now put the gun down and let Annie go.
+            """
 
 
 
