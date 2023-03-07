@@ -113,6 +113,10 @@ class Player:
         self.distance = 20
 
     # METHODS
+    def enter_name(self):
+        self.name = input("-----\nEnter your name to begin game: ")
+        input(f"Hello! {self.name}.\n")
+
     def got_killed(self):
         self.is_alive = False
         print(f"{self.name} got killed.")
