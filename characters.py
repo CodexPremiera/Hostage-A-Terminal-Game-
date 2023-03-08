@@ -8,6 +8,10 @@ def probability(rate=0):
     return random.randint(0, 10) < rate
 
 
+def press_continue(prompt="enter to continue_"):
+    input(f">>> {prompt}")
+
+
 # CLASSES
 class Victim:
     def __init__(self, name, is_hostaged=True, is_alive=True):
@@ -114,8 +118,9 @@ class Player:
 
     # METHODS
     def enter_name(self):
-        self.name = input("-----\nEnter your name to begin game: ")
-        input(f"Hello! {self.name}.\n")
+        self.name = input("\n-----\nEnter your name to begin game: ")
+        print(f"Hello, {self.name}! 🤵 \n")
+        press_continue()
 
     def got_killed(self):
         self.is_alive = False

@@ -77,7 +77,7 @@ You went outside the office and slowly approached the scene. Berthold, the hosta
                     (shoots a gun)
             [BANG!]
 
-The bullet barely missed you. You stopped on your spot
+A bullet barely missed you. You stopped on your spot
 
                     BERTHOLD
             """(to you): STAY BACK! Don't come any closer, or I'll shoot her.
