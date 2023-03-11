@@ -47,11 +47,11 @@ class Kidnapper:
 
     # METHODS
     def less_trust(self, trust_change=5):
-        print(f"{self.name}'s mercy level is reduced by {trust_change}%")
+        print(f"{self.name}'s trust level is reduced by {trust_change}%")
         self.trust -= trust_change
 
     def plus_trust(self, trust_change=5):
-        print(f"{self.name}'s mercy level is increased by {trust_change}%")
+        print(f"{self.name}'s trust level is increased by {trust_change}%")
         self.trust += trust_change
 
     def releases_victim(self):

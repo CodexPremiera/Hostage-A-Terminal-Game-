@@ -264,3 +264,62 @@ def talk_to_kidnapper():
     info = [kidnapper.print_trust()]                            # Print kidnapper's trust level after action
     print_stats(info)
 
+
+has_gun_dict = {
+    'ADMIT AND DROP YOUR GUN': [5, {
+        'YOU_1': """        🤵 NEGOTIATOR (YOU)
+                Yes. I have a gun right now.
+                """,
+        'BER_1': """        🙍‍♂️ BERTHOLD
+                DROP IT! No sudden moves or I'll shoot you.
+                """,
+        'YOU_2': """        🤵 NEGOTIATOR (YOU)
+                (Drops the gun)
+                There. I don't have a gun anymore."""
+        }],
+    'LIE AND KEEP YOUR GUN': [-5, {
+        'YOU_1': """        🤵 NEGOTIATOR (YOU)
+                No. I don't have a weapon.
+                """,
+        'BER_1': """        🙍‍♂️ BERTHOLD
+                YOU'RE LYING! I know you have a gun.
+                """,
+        'YOU_2': """        🤵 NEGOTIATOR (YOU)
+                I'm telling you the truth Berthold. I came here unarmed."""
+        }]
+    }
+
+
+def asked_if_armed():
+    # Display the instruction and the emotional choices
+    instruction = f"""
+                -----
+                {kidnapper.name}'s ask you if have a gun.
+                """
+    instruction = dedent(instruction) + """\n        🙍‍♂️ BERTHOLD
+                (points the gun at you)
+                Are you armed?
+                \n"""
+    has_gun_list = [key for key in has_gun_dict.keys()]         # Make a list of yes or no decision
+    has_gun_nums = [i + 1 for i in range(len(has_gun_list))]    # Get the numbers of yes or no decision
+    for i in has_gun_nums:
+        instruction += f"\t {i} - {has_gun_list[i - 1]}\n"
+    print(instruction)
+
+    # Let player whether to surrender or keep the gun
+    inp_num = ask_int("Enter chosen number: ", has_gun_nums)    # Ask player for number of chosen emotion
+    inp_str = has_gun_list.pop(inp_num - 1)                     # Remove the chosen emotion from its list
+    print(f"You have chosen to {inp_str.lower()}.")
+
+    # Admit/lie to Hostage Taker about you having a gun
+    script = has_gun_dict.pop(inp_str)                          # Remove the chosen emotion its dict
+    if script[0] < 0:                                           # Increase/decrease kidnapper's trust level
+        kidnapper.less_trust()
+    else:
+        kidnapper.plus_trust(script[0])
+    print("")
+    for values in script[1].values():                           # Execute the chosen emotion sequence
+        print(f"{values}")
+        time.sleep(set_time)
+    info = [kidnapper.print_trust()]                            # Print kidnapper's trust level after action
+    print_stats(info)
