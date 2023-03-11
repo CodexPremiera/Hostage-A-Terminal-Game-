@@ -35,16 +35,6 @@ The police approached you.
             """
 
                     NEGOTIATOR (YOU)
-            """ Any other casualties?
-            """
-
-                    POLICE OFFICER
-            """ Well sir, he has also already killed two of our responding policemen. He also killed two
-            civilians and wounded one. That wounded one is currently outside where the hostage is happening.
-            It's a teenage boy. He needs urgent medical attention, but it is too dangerous to approach.
-            """
-
-                    NEGOTIATOR (YOU)
             """ That's unfortunate. It seems the man is really twisted right now.
             """
 
@@ -188,10 +178,6 @@ If 6= INSANITY: Mercy -5
 
 
 -----
-You see the wounded civilian the police officer told you about. He is lying down at a corner between you and
-Berthold. You slowly walked towards him while answering Berthold's question.
-
-
 CHOICE: 1= Lie and keep the gun, 2= Confess and drop the gun
 
 If 1: Mercy +5
@@ -228,52 +214,6 @@ If 2: Mercy -5
 
                     NEGOTIATOR (YOU)
             """ I'm telling you the truth Berthold. I came here unarmed.
-            """
-
-
---------------------
-ACT 4: THE WOUNDED BOY
-
-You arrived at the spot where the wounded boy is lying down. He is still alive but is losing a lot of blood.
-
-                    NEGOTIATOR (YOU)
-            """(to Berthold): He is losing blood. We must bring him to the hospital or else he will die.
-            """
-
-                    BERTHOLD
-            """ We all die eventually. What does it matter if that one dies right now?
-            """
-
-                    NEGOTIATOR (YOU)
-            """I am going to do a quick bondage on him.
-            """
-
-                     BERTHOLD
-                    (shoots a gun)
-            [BANG!]
-
-The bullet barely missed you. You stopped on your spot
-
-                    BERTHOLD
-            """ Don't touch him! Touch him and I will kill you!
-            """
-
------
-CHOICE: 1= Obey and Stop, 2= Ignore and Continue walking.
-
-If 1: Mercy -5
-                    NEGOTIATOR (YOU)
-            """ He is only a boy Berthold. I can't just let him die.
-
-            (You proceed to bondage the boy and control his bleed.)
-            (You have gone up and continue getting closer to Berthold while talking ot him.)
-            """
-
-If 3: Mercy +5
-                    NEGOTIATOR (YOU)
-            """ Okay. I'll do what you want.
-
-            (You have gone up and continue getting closer to Berthold while talking ot him.)
             """
 
 

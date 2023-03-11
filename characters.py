@@ -114,8 +114,8 @@ class Kidnapper:
 
 
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
+        self.name = ""
         self.has_gun = True
         self.is_alive = True
         self.distance = 20
@@ -126,11 +126,9 @@ class Player:
 
     # METHODS
     def enter_profile(self):
-        name = input(">>> Enter your name to begin game: ")
-        if name == "":
-            print(f"Greetings, Dear Negotiator! 🤵 \n")
-        else:
-            print(f"Greetings, {name}! 🤵 \n")
+        while self.name == "":
+            self.name = input(">>> Enter your name to begin game: ")
+        print(f"Greetings, {self.name}! 🤵 \n")
         press_continue()
 
     def walk_cont(self, distance=1):
@@ -283,5 +281,5 @@ class Sniper:
 # OBJECT DECLARATION
 kidnapper = Kidnapper('Berthold')
 victim = Victim('Annie')
-player = Player('You')
+player = Player()
 sniper = Sniper('The Sniper')

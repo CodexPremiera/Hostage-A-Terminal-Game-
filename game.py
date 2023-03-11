@@ -36,10 +36,10 @@ def ask_int(prompt_str, choice_list):
 
 
 def print_stats(stat_list):
-    stats = "----------"
+    stats = "\n--------------------"
     for stat in stat_list:
         stats += f"\n{stat}"
-    stats += "\n----------"
+    stats += "\n--------------------"
     print(f"{stats}")
 
 
@@ -88,28 +88,19 @@ def talk_with_police():
                 We have no clue sir. But we did find a dead man in their room. Apparently, he was shot.
                 We suspect this has something to do about their relationship.
                 """,
-        'YOU_2': """        🤵️ NEGOTIATOR (YOU)
-                Any other casualties?
-                """,
-        'POL_3': """        👮‍♂️ POLICE OFFICER
-                Well sir, he has also already killed two of our responding policemen. He also killed two
-                civilians and wounded one. That wounded one is currently outside where the hostage is 
-                happening. It's a teenage boy. He needs urgent medical attention, but it is too dangerous 
-                to approach.
-                """,
-        'YOU_3': """        🤵 NEGOTIATOR (YOU)
+        'YOU_2': """        🤵 NEGOTIATOR (YOU)
                 That's unfortunate. It seems the man is really twisted right now.
                 """,
-        'POL_4': """        👮‍♂️ POLICE OFFICER
+        'POL_3': """        👮‍♂️ POLICE OFFICER
                 I agree sir. But we still need to save the girl at all cost.
                 """,
-        'YOU_4': """        🤵️ NEGOTIATOR (YOU)
+        'YOU_3': """        🤵️ NEGOTIATOR (YOU)
                 I know. Do you have their names?
                 """,
-        'POL_5': """        👮‍♂️ POLICE OFFICER
+        'POL_4': """        👮‍♂️ POLICE OFFICER
                 Yes sir, the man's name is Berthold, and the girl's is Annie.   
                 """,
-        'YOU_5': """        🤵 NEGOTIATOR (YOU)
+        'YOU_4': """        🤵 NEGOTIATOR (YOU)
                 That is all I need. Thank you.
                 """
     }
@@ -176,8 +167,7 @@ def initial_encounter():
                 How... how do you know my name?
                 """,
         'YOU_2': """        🤵 NEGOTIATOR (YOU)
-                (to you): I know a lot of things about you Berthold. I've come to help you out of this.
-                """
+                (to you): I know a lot of things about you Berthold. I've come to help you out of this."""
     }
     # Display game stats as a result of decision to walk or not
     for values in script_2.values():
@@ -194,8 +184,7 @@ emotions_dict = {
                 """,
         'BER_1': """        🙍‍♂️ BERTHOLD
                 I am not stupid! I know you are going to shoot me the moment I release her.
-                This is how this ends. EITHER I DIE, OR WE BOTH DIE!
-                """
+                This is how this ends. EITHER I DIE, OR WE BOTH DIE!"""
         }],
     'TALK THE VICTIM': [0, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
@@ -206,24 +195,21 @@ emotions_dict = {
                 (to You): Please, help me. I don't want to die!
                     """,
         'YOU_2': """        🤵 NEGOTIATOR (YOU)
-                (to Annie): Nobody is going to die. Stay calm. Everything is going to be fine.
-                """
+                (to Annie): Nobody is going to die. Stay calm. Everything is going to be fine."""
         }],
     'CALM HIM DOWN': [5, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
                 I need you to calm down, Berthold. Let me help you and everything will be okay.
                 """,
         'BER_1': """        🙍‍♂️ BERTHOLD
-                I don't need your help. Nobody can help me now. JUST LEAVE ME ALONE AND I'LL END THIS.
-                """
+                I don't need your help. Nobody can help me now. JUST LEAVE ME ALONE AND I'LL END THIS."""
         }],
     'REASSURE HIM': [5, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                I'm not going to hurt you. I just want to talk and find a solution.
+                I'm not going to hurt you Berthold. I just want to talk and find a solution.
                 """,
         'BER_1': """        🙍‍♂️ BERTHOLD
-                Talk!? I don't want to talk. It's too late for that now. IT'S TOO LATE!
-                """
+                Talk!? I don't want to talk. It's too late for that now. IT'S TOO LATE!"""
         }],
     'BE REALISTIC': [-5, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
@@ -233,8 +219,7 @@ emotions_dict = {
         'BER_1': """        🙍‍♂️ BERTHOLD
                 It's not up to you. I'm holding all the cards.
                 (Points the gun at Annie)
-                IF I DIE, SHE DIES! You hear me?
-                """
+                IF I DIE, SHE DIES! You hear me?"""
         }],
     'TALK INSANITY': [-5, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
@@ -243,8 +228,7 @@ emotions_dict = {
                 """,
         'BER_1': """        🙍‍♂️ BERTHOLD
                 I DON'T NEED TO BE CURED! I am thinking perfectly. But my eyes are open now.
-                I won't let anyone hurt me again. EVER!
-                """
+                I won't let anyone hurt me again. EVER!"""
         }]
     }
 
@@ -264,13 +248,19 @@ def talk_to_kidnapper():
 
     # Let player choose what to say to the Hostage Taker
     inp_num = ask_int("Enter chosen number: ", emotions_nums)   # Ask player for number of chosen emotion
-    inp_str = emotions_list.pop(inp_num-1)                      # Remove the chosen emotion from the list
-    print(f"You have chosen {inp_num} - {inp_str.title()}")
+    inp_str = emotions_list.pop(inp_num-1)                      # Remove the chosen emotion from its list
+    print(f"You have chosen to {inp_str.lower()}.")
 
-    # Execute the chosen emotion script
-    script = emotions_dict.pop(inp_str)
-    for values in script[1].values():
+    # Talk to Hostage Taker with the chosen emotion
+    script = emotions_dict.pop(inp_str)                         # Remove the chosen emotion its dict
+    if script[0] < 0:                                           # Increase/decrease kidnapper's trust level
+        kidnapper.less_trust()
+    else:
+        kidnapper.plus_trust(script[0])
+    print("")
+    for values in script[1].values():                           # Execute the chosen emotion sequence
         print(f"{values}")
         time.sleep(set_time)
-
+    info = [kidnapper.print_trust()]                            # Print kidnapper's trust level after action
+    print_stats(info)
 
