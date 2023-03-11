@@ -120,7 +120,6 @@ CHOICE: 1= DEMAND, 2= TALK TO VICTIM,
         3= CALMING, 4= REASSURE,
         5= REALISTIC, 6= INSANITY
 
-
 If 1= DEMAND: Mercy +0
                     NEGOTIATOR (YOU)
             """ I need you to let her go Berthold. That is the only way this can end.

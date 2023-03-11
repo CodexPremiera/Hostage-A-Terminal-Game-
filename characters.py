@@ -36,19 +36,23 @@ class Victim:
 class Kidnapper:
     def __init__(self, name):
         self.name = name
-        self.mercy = 50
+        self.trust = 50
         self.is_doing_hostage = True
         self.is_alive = True
         self.is_tackled = False
 
-    # METHODS
-    def less_mercy(self):
-        print(f"{self.name} got less mercy.")
-        self.mercy -= 10
+    def print_trust(self):
+        stats = f"{self.name}'s Mercy Level: {self.trust}%"
+        return stats
 
-    def plus_mercy(self):
-        print(f"{self.name} got more mercy.")
-        self.mercy += 10
+    # METHODS
+    def less_trust(self, trust_change=5):
+        print(f"{self.name}'s mercy level is reduced by {trust_change}%")
+        self.trust -= trust_change
+
+    def plus_trust(self, trust_change=5):
+        print(f"{self.name}'s mercy level is increased by {trust_change}%")
+        self.trust += trust_change
 
     def releases_victim(self):
         print(f"{self.name} released the victim.")
@@ -79,7 +83,7 @@ class Kidnapper:
     # Decisive Actions
     def shoot_self_or_player(self):
         # establish the probability based distance
-        factor = self.mercy
+        factor = self.trust
         if factor >= 50:
             chance = 80
         else:
@@ -94,7 +98,7 @@ class Kidnapper:
 
     def decide_victim_fate(self):
         # establish the probability based on mercy
-        factor = self.mercy
+        factor = self.trust
         if factor >= 40:
             chance = 80
         else:
@@ -116,11 +120,27 @@ class Player:
         self.is_alive = True
         self.distance = 20
 
+    def print_distance(self):
+        stats = f"Your distance to {kidnapper.name}: {self.distance}m"
+        return stats
+
     # METHODS
-    def enter_name(self):
-        self.name = input("\n-----\nEnter your name to begin game: ")
-        print(f"Hello, {self.name}! 🤵 \n")
+    def enter_profile(self):
+        name = input(">>> Enter your name to begin game: ")
+        if name == "":
+            print(f"Greetings, Dear Negotiator! 🤵 \n")
+        else:
+            print(f"Greetings, {name}! 🤵 \n")
         press_continue()
+
+    def walk_cont(self, distance=1):
+        self.distance -= distance
+        print("You continue to walk very slowly towards the hostage taker.")
+        kidnapper.less_trust()
+
+    def walk_stop(self, distance=0):
+        self.distance -= distance
+        print("You stopped walking and stayed in you place for a while.")
 
     def got_killed(self):
         self.is_alive = False
@@ -133,7 +153,7 @@ class Player:
 
     def pointed_gun_kidnapper(self):
         print(f"{self.name} pointed the gun to the kidnapper.")
-        kidnapper.mercy -= 10
+        kidnapper.trust -= 10
         print(f'{self.name} (to the kidnapper): "Drop your gun and release the hostage! Else, I will shoot you!"')
 
     # Rush Actions
@@ -261,7 +281,7 @@ class Sniper:
 
 
 # OBJECT DECLARATION
-kidnapper = Kidnapper('The Kidnapper')
+kidnapper = Kidnapper('Berthold')
 victim = Victim('Annie')
 player = Player('You')
 sniper = Sniper('The Sniper')

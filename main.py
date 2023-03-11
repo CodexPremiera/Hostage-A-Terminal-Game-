@@ -10,11 +10,12 @@ sniper = characters.sniper
 
 
 # GAME SEQUENCE
-game.print_title()
-player.enter_name()
-
-game.print_overview()
-game.talk_with_police()
-game.print_mission()
-
+# game.print_title()
+# player.enter_profile()
+#
+# game.print_overview()
+# game.talk_with_police()
+# game.print_mission()
+#
 game.initial_encounter()
+game.talk_to_kidnapper()
