@@ -46,13 +46,19 @@ class Kidnapper:
         return stats
 
     # METHODS
-    def less_trust(self, trust_change=5):
-        print(f"{self.name}'s trust level is reduced by {trust_change}%")
+    def less_trust(self, trust_change=8):
         self.trust -= trust_change
+        if self.trust < 0:
+            trust_change -= 0 - self.trust
+            self.trust = 0
+        print(f"{self.name}'s trust level is reduced by {trust_change}%")
 
-    def plus_trust(self, trust_change=5):
-        print(f"{self.name}'s trust level is increased by {trust_change}%")
+    def plus_trust(self, trust_change=8):
         self.trust += trust_change
+        if self.trust > 100:
+            trust_change -= 100 - self.trust
+            self.trust = 100
+        print(f"{self.name}'s trust level is increased by {trust_change}%")
 
     def releases_victim(self):
         print(f"{self.name} released the victim.")
@@ -124,6 +130,10 @@ class Player:
         stats = f"Your distance to {kidnapper.name}: {self.distance}m"
         return stats
 
+    def print_has_gun(self):
+        stats = f"You have a gun: {self.has_gun}"
+        return stats
+
     # METHODS
     def enter_profile(self):
         while self.name == "":
@@ -139,6 +149,14 @@ class Player:
     def walk_stop(self, distance=0):
         self.distance -= distance
         print("You stopped walking and stayed in you place for a while.")
+
+    def keep_gun(self):
+        self.has_gun = True
+        print("\nSince you kept your gun, you are still armed.")
+
+    def drop_gun(self):
+        self.has_gun = False
+        print("\nSince you dropped your gun, you are now unarmed.")
 
     def got_killed(self):
         self.is_alive = False
