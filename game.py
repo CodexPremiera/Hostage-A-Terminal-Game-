@@ -28,11 +28,15 @@ def ask_char(prompt_str, choice_list):
 
 
 def ask_int(prompt_str, choice_list):
-    inp = -2.71828
-    while inp not in choice_list:
-        inp = input(f">>> {prompt_str}")
-        inp = int(inp)
-    return inp
+    choice = -2.718
+    while choice not in choice_list:                    # Check if the input is within the choices
+        choice = input(f">>> {prompt_str}")
+        try:
+            choice = int(choice)                        # Check if the input is of a valid type
+        except ValueError:
+            continue
+    value = choice
+    return value
 
 
 def print_stats(stat_list):
@@ -154,8 +158,10 @@ def initial_encounter():
     print("---")
     if answer == 'N':
         player.walk_cont(5)
+        kidnapper.less_trust()
     else:
         player.walk_stop()
+        kidnapper.plus_trust()
     print('')
 
     # Introduce the player's self to Berthold while walking or staying as decided
@@ -177,149 +183,43 @@ def initial_encounter():
     print_stats(info)
 
 
-emotions_dict = {
-    'MAKE DEMANDS': [0, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                I need you to let her go Berthold. That is the only way this can end.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                I am not stupid! I know you are going to shoot me the moment I release her.
-                This is how this ends. EITHER I DIE, OR WE BOTH DIE!"""
-        }],
-    'TALK THE VICTIM': [0, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                (to Annie): Are you okay Annie?
-                """,
-        'ANN_1': """        👩‍💼 ANNIE
-                (afraid and crying)
-                (to You): Please, help me. I don't want to die!
-                    """,
-        'YOU_2': """        🤵 NEGOTIATOR (YOU)
-                (to Annie): Nobody is going to die. Stay calm. Everything is going to be fine."""
-        }],
-    'CALM HIM DOWN': [5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                I need you to calm down, Berthold. Let me help you and everything will be okay.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                I don't need your help. Nobody can help me now. JUST LEAVE ME ALONE AND I'LL END THIS."""
-        }],
-    'REASSURE HIM': [5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                I'm not going to hurt you Berthold. I just want to talk and find a solution.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                Talk!? I don't want to talk. It's too late for that now. IT'S TOO LATE!"""
-        }],
-    'BE REALISTIC': [-5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                There's no way out Berthold. What you have done is too serious. 
-                The only question is whether you take another life.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                It's not up to you. I'm holding all the cards.
-                (Points the gun at Annie)
-                IF I DIE, SHE DIES! You hear me?"""
-        }],
-    'TALK INSANITY': [-5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                I know you are in distress Berthold. You are not in your right mind. 
-                We are going to find you a doctor and everything will be fine.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                I DON'T NEED TO BE CURED! I am thinking perfectly. But my eyes are open now.
-                I won't let anyone hurt me again. EVER!"""
-        }]
-    }
-
-
-def talk_to_kidnapper():
-    # Display the instruction and the emotional choices
-    instruction = f"""
-                -----
-                Earn {kidnapper.name}'s trust. Choose on what you want to say:
-                """
-    instruction = dedent(instruction)
-    emotions_list = [key for key in emotions_dict.keys()]       # Make a list of all playable emotions
-    emotions_nums = [i+1 for i in range(len(emotions_list))]    # Get the numbers of playable emotions
-    for i in emotions_nums:
-        instruction += f"\t {i} - {emotions_list[i-1]}\n"
-    print(instruction)
+def talk_to_kidnapper(instruction_str, options_dict, consider_has_gun=False):
+    # Display the instruction and the available action choices
+    instruct = ""
+    instruct += f"\n{instruction_str}\n"                        # Print instruction header of the act
+    options_list = [key for key in options_dict.keys()]         # Make a list of all playable options
+    options_nums = [i+1 for i in range(len(options_list))]      # Get the numbers of playable options
+    for i in options_nums:
+        instruct += f"\t {i} - {options_list[i-1]}\n"
+    print(instruct)
 
     # Let player choose what to say to the Hostage Taker
-    inp_num = ask_int("Enter chosen number: ", emotions_nums)   # Ask player for number of chosen emotion
-    inp_str = emotions_list.pop(inp_num-1)                      # Remove the chosen emotion from its list
+    inp_num = ask_int("Enter chosen number: ", options_nums)    # Ask player for number of chosen option
+    inp_str = options_list.pop(inp_num-1)                       # Remove the chosen option from its list
     print(f"You have chosen to {inp_str.lower()}.")
 
     # Talk to Hostage Taker with the chosen emotion
-    script = emotions_dict.pop(inp_str)                         # Remove the chosen emotion its dict
-    if script[0] < 0:                                           # Increase/decrease kidnapper's trust level
+    script = options_dict.pop(inp_str)                          # Remove the chosen option its dict
+    if script[0] > 0:                                           # Increase kidnapper's trust level
+        kidnapper.plus_trust()
+    elif script[0] < 0:                                         # Decrease kidnapper's trust level
         kidnapper.less_trust()
     else:
-        kidnapper.plus_trust(script[0])
+        print(f"{kidnapper.name}'s trust level is unchanged.")  # No change on kidnapper's trust level
     print("")
-    for values in script[1].values():                           # Execute the chosen emotion sequence
+    for values in script[1].values():                           # Execute the chosen options sequence
         print(f"{values}")
         time.sleep(set_time)
-    info = [kidnapper.print_trust()]                            # Print kidnapper's trust level after action
-    print_stats(info)
+    info_list = [kidnapper.print_trust()]                       # Print kidnapper's trust level after action
+
+    # Additional Task: Has Gun
+    if consider_has_gun:
+        if script[0] > 0:                                       # Consider player's gun; Drop/keep gun
+            player.drop_gun()
+        else:
+            player.keep_gun()
+        info_list.append(player.print_has_gun())                # Print kidnapper's stats after action
+    print_stats(info_list)
 
 
-has_gun_dict = {
-    'ADMIT AND DROP YOUR GUN': [5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                Yes. I have a gun right now.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                DROP IT! No sudden moves or I'll shoot you.
-                """,
-        'YOU_2': """        🤵 NEGOTIATOR (YOU)
-                (Drops the gun)
-                There. I don't have a gun anymore."""
-        }],
-    'LIE AND KEEP YOUR GUN': [-5, {
-        'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                No. I don't have a weapon.
-                """,
-        'BER_1': """        🙍‍♂️ BERTHOLD
-                YOU'RE LYING! I know you have a gun.
-                """,
-        'YOU_2': """        🤵 NEGOTIATOR (YOU)
-                I'm telling you the truth Berthold. I came here unarmed."""
-        }]
-    }
 
-
-def asked_if_armed():
-    # Display the instruction and the emotional choices
-    instruction = f"""
-                -----
-                {kidnapper.name}'s ask you if have a gun.
-                """
-    instruction = dedent(instruction) + """\n        🙍‍♂️ BERTHOLD
-                (points the gun at you)
-                Are you armed?
-                \n"""
-    has_gun_list = [key for key in has_gun_dict.keys()]         # Make a list of yes or no decision
-    has_gun_nums = [i + 1 for i in range(len(has_gun_list))]    # Get the numbers of yes or no decision
-    for i in has_gun_nums:
-        instruction += f"\t {i} - {has_gun_list[i - 1]}\n"
-    print(instruction)
-
-    # Let player whether to surrender or keep the gun
-    inp_num = ask_int("Enter chosen number: ", has_gun_nums)    # Ask player for number of chosen emotion
-    inp_str = has_gun_list.pop(inp_num - 1)                     # Remove the chosen emotion from its list
-    print(f"You have chosen to {inp_str.lower()}.")
-
-    # Admit/lie to Hostage Taker about you having a gun
-    script = has_gun_dict.pop(inp_str)                          # Remove the chosen emotion its dict
-    if script[0] < 0:                                           # Increase/decrease kidnapper's trust level
-        kidnapper.less_trust()
-    else:
-        kidnapper.plus_trust(script[0])
-    print("")
-    for values in script[1].values():                           # Execute the chosen emotion sequence
-        print(f"{values}")
-        time.sleep(set_time)
-    info = [kidnapper.print_trust()]                            # Print kidnapper's trust level after action
-    print_stats(info)

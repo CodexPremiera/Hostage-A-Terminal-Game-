@@ -247,18 +247,18 @@ If 1= ASK FOR CAUSE: Mercy +0
             """
 
                      BERTHOLD
-            """ Don't worry Annie. I'll make sure you would never hurt me again.
+            """ Don't worry Annie. I'll make sure you would NEVER hurt me again.
             """
 
-If 2= THAT MAN: Mercy +0
+If 2= KNOW ABOUT THE DEAD MAN: Mercy +0
                     NEGOTIATOR (YOU)
             """ We found a dead man in your room. You shot him, didn't you? What does he have to do with all this?
             """
 
                     BERTHOLD
             """ That son of a b**** is my girlfriend's latest affair. Throughout our relationship, I have caught
-            her cheating several times. But I have always been forgiving to her. I was hoping that she will change
-            eventually. BUT SHE ONLY TOOK ADVANTAGE OF MY KINDNESS.
+            her cheating several times. But I have always been so forgiving to her. I was hoping that she will change
+            eventually. BUT SHE DIDN'T. SHE ONLY TOOK ADVANTAGE OF MY KINDNESS.
             """
 
                     ANNIE
@@ -273,7 +273,7 @@ If 2= THAT MAN: Mercy +0
 -----
 CHOICE EMOTIONS: 1= SYMPATHETIC, 2= BLAMING, 3= END THIS
 
-If 1= SYMPATHETIC: Mercy +5
+If 1= SYMPATHIZE WITH HIM: Mercy +5
                     NEGOTIATOR (YOU)
             """ Listen. I know it is not your fault. You're just doing this because of your pain and anger.
             """
@@ -283,7 +283,7 @@ If 1= SYMPATHETIC: Mercy +5
             BUT I WAS NOTHING TO HER!
             """
 
-If 2= BLAMING: Mercy -5
+If 2= TELL HIS MISTAKE: Mercy -5
                     NEGOTIATOR (YOU)
             """ Do you think this will solve your problem? Look at what you did. You have killed a lot of people
             Berthold.
@@ -293,7 +293,7 @@ If 2= BLAMING: Mercy -5
             """ I did not mean to hurt them. This is only about me and her. All of these is her fault.
             """
 
-If 1= END THIS: Mercy +0
+If 1= ASK HIM TO END THIS: Mercy +0
                     NEGOTIATOR (YOU)
             """ Violence is not the answer Berthold. It is not too late. You can still end this.
             """
@@ -311,18 +311,18 @@ ACT 5: FINAL NEGOTIATION
 CHOICE: 1= LAST CHANCE, 2= TRUST, 3= RATIONAL
 
 
-If 1= LAST CHANCE: Mercy +0
+If 1= GIVE LAST CHANCE: Mercy +0
                     NEGOTIATOR (YOU)
             """ I'm your last chance Berthold. If you let it slip, they'll kill you.
             Let the hostage go. You have no other choice.
             """
 
-If 2= TRUST: Mercy +5
+If 2= ASK FOR TRUST: Mercy +5
                     NEGOTIATOR (YOU)
             """ You have to trust me Berthold. Let the hostage go and I promise everything will be fine.
             """
 
-If 3= RATIONAL: Mercy -5
+If 3= DECLARE THREAT: Mercy -5
                     NEGOTIATOR (YOU)
             """ Listen. There are snipers on every roof. Let the hostage go. You have no other choice.
             """
@@ -342,7 +342,7 @@ If 1= COMPROMISE:
 
 If 2= REFUSE:
                     NEGOTIATOR (YOU)
-            """ That is out of the question. Now put the gun down and let Annie go.
+            """ That is out of the question. Just put the gun down and let Annie go.
             """
 
 
