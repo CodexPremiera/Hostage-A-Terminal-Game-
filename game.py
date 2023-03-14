@@ -2,15 +2,16 @@
 from textwrap import dedent
 import time
 import characters
+from characters import probability
 
 # CHARACTERS
 player = characters.player
 victim = characters.victim
 kidnapper = characters.kidnapper
-sniper = characters.sniper
+police = characters.police
 
 # VARIABLES
-set_time = 0
+set_time = 1.618
 
 
 # TASK FUNCTIONS
@@ -47,6 +48,12 @@ def print_stats(stat_list):
     print(f"{stats}")
 
 
+def print_script(script_dict):
+    for values in script_dict.values():
+        time.sleep(set_time)
+        print(f"{values}")
+
+
 # SCRIPT FUNCTIONS
 def print_title():
     text = f"""
@@ -73,7 +80,7 @@ def print_overview():
 
 
 def talk_with_police():
-    script = {
+    talk_with_police_script = {
         'POL_0': """        👮‍ POLICE OFFICER
                 Good evening sir! I would like to brief you about the situation.
                 """,
@@ -108,10 +115,7 @@ def talk_with_police():
                 That is all I need. Thank you.
                 """
     }
-    for values in script.values():
-        print(f"{values}")
-        time.sleep(set_time)
-    press_continue()
+    print_script(talk_with_police_script)
 
 
 def print_mission():
@@ -120,6 +124,7 @@ def print_mission():
         MISSION: 
          ▶ Talk with Berthold and gain his trust. 
          ▶ Save the girl at all cost.
+         ▶ Avoid any casualties as much as possible
          
          {player.print_distance()}
          {kidnapper.print_trust()}
@@ -130,7 +135,7 @@ def print_mission():
 
 
 def initial_encounter():
-    script_1 = {
+    first_talk_script = {
         'NAR_0': "-----",
         'NAR_1': """You went outside the office and slowly approached the scene. Berthold, the hostage taker, sees you.
                 """,
@@ -149,23 +154,19 @@ def initial_encounter():
                 (to You): Please sir. Save me!
                 """
     }
-    for values in script_1.values():
-        print(f"{values}")
-        time.sleep(set_time)
+    print_script(first_talk_script)
 
     # Decide whether to stop walking or not as Berthold commands
     answer = ask_char("Obey Berthold and stop walking? (Y/N)_", ['Y', 'N'])
     print("---")
     if answer == 'N':
-        player.walk_cont(5)
-        kidnapper.less_trust()
+        player.walk_cont()
     else:
         player.walk_stop()
-        kidnapper.plus_trust()
     print('')
 
     # Introduce the player's self to Berthold while walking or staying as decided
-    script_2 = {
+    names_script = {
         'YOU_1': f"""        🤵 NEGOTIATOR (YOU)
                 Hello Berthold. My name is {player.name}. I am a trained negotiator. 
                 """,
@@ -176,9 +177,7 @@ def initial_encounter():
                 (to you): I know a lot of things about you Berthold. I've come to help you out of this."""
     }
     # Display game stats as a result of decision to walk or not
-    for values in script_2.values():
-        print(f"{values}")
-        time.sleep(set_time)
+    print_script(names_script)
     info = [player.print_distance(), kidnapper.print_trust()]
     print_stats(info)
 
@@ -219,7 +218,147 @@ def talk_to_kidnapper(instruction_str, options_dict, consider_has_gun=False):
         else:
             player.keep_gun()
         info_list.append(player.print_has_gun())                # Print kidnapper's stats after action
+
+    # Print the info
     print_stats(info_list)
 
 
+finale_sequence_dict = {
+    'HE RELEASES VICTIM': {
+        'BER_1': """        🙍‍♂️ BERTHOLD
+                Alright...""",
+        'BER_2': """\
+                I will let her go right now.""",
+        'BER_3': f"""\
+                (He let go of his grip on {victim.name} and released her.)
+                """
+        },
+    'HE SURRENDERS': {
+        'YOU_1': f"""        🤵 NEGOTIATOR (YOU)
+                Now, Berthold. I need you to drop your gun and surrender peacefully.
+                """,
+        'BER_1': """        🙍‍♂️ BERTHOLD
+                Okay...""",
+        'BER_2': """\
+                I surrender peacefully.""",
+        'BER_3': f"""\
+                (He drops his gun and throw it far away.)
+                """
+        },
+    'HE KILLED HIMSELF': {
+        'YOU_1': f"""        🤵 NEGOTIATOR (YOU)
+               Now, Berthold. I need you to drop your gun and surrender peacefully.
+               """,
+        'BER_1': f"""        🙍‍♂️ BERTHOLD
+                It's too late for that now, {player.name}.""",
+        'BER_2': """\
+                (He points his gun to his head)
+                """,
+        'YOU_2': f"""        🤵 NEGOTIATOR (YOU)
+                WAIT! BERTHOLD, NO......
+                """,
+        'NAR_1': """        BANG! 🔫💨💥
+                """
+        },
+    'NOT RELEASE VICTIM': {
+        'BER_1': """        🙍‍♂️ BERTHOLD
+                No...""",
+        'BER_2': """\
+                I've been in pain for so long because of her.
+                """,
+        'BER_3': f"""\
+                I CAN'T JUST LET HER GO WITH IT!
+                """
+        },
+    'HE SHOOTS YOU': {
+        'BER_1': f"""        🙍‍♂️ BERTHOLD
+                And as for you, {player.name}.""",
+        'BER_2': """\
+                Thank you... FOR NOTHING!
+                """,
+        'NAR_1': """        BANG! 🔫💨💥
+                """
+        }
+    }
 
+
+def final_decision():
+    print("")
+    # Kidnapper shall definitely release the victim
+    if kidnapper.trust >= 50:
+        print_script(finale_sequence_dict['HE RELEASES VICTIM'])
+        kidnapper.releases_victim()
+
+        # Kidnapper shall kill himself
+        if kidnapper.trust < 80 and probability(100 - kidnapper.trust):
+            print_script(finale_sequence_dict['HE KILLED HIMSELF'])
+            kidnapper.shoots_self()
+        # Kidnapper shall surrenders
+        else:
+            print_script(finale_sequence_dict['HE SURRENDERS'])
+            kidnapper.surrenders()
+
+    # Kidnapper shall kill the victim and possibly kill the player
+    else:
+        print_script(finale_sequence_dict['NOT RELEASE VICTIM'])
+
+        if kidnapper.trust <= 20 or probability(kidnapper.trust):
+            print_script(finale_sequence_dict['HE SHOOTS YOU'])
+            kidnapper.shoots_player()
+
+        # Kidnapper shoots the victim and in turn, shot by sniper
+        kidnapper.shoots_victim()
+
+
+def print_completion():
+    # Make List of casualties
+    casualties = []
+    if not player.is_alive:
+        casualties.append("You")
+    if not victim.is_alive:
+        casualties.append(victim.name)
+    if not kidnapper.is_alive:
+        casualties.append(kidnapper.name)
+
+    # Compute the success points
+    success = 0
+    success += 30 * (kidnapper.trust/100)     # Add success points based on kidnappers's trust
+    if victim.is_alive:                         # Add success points based on casualties
+        success += 50
+    if player.is_alive:
+        success += 10
+    if kidnapper.is_alive:
+        success += 10
+
+    # Determine the success description
+    if success >= 90 and len(casualties) == 0:
+        result = "⭐⭐ ⭐⭐ ⭐⭐ ⭐⭐ ⭐⭐ \n        MISSION ACCOMPLISHED with Perfection"
+    elif success >= 70:
+        result = "⭐⭐ ⭐⭐ ⭐⭐ ⭐⭐ ⭐⭐ \n        MISSION ACCOMPLISHED with High Success"
+    elif success >= 50:
+        result = "⭐⭐ ⭐⭐ ⭐⭐ ❇❇ ❇❇   \n        MISSION ACCOMPLISHED"
+    elif success >= 30:
+        result = "💀💀 💀💀 💀💀 ☠☠ ☠☠   \n        MISSION FAILED"
+    else:
+        result = "💀💀 💀💀 💀💀 💀💀 💀💀 \n        MISSION FAILED with complete disappointment"
+
+    # Print final game report
+    text = f"""\
+        --------------------------------------------------------------------------------------------
+        RESULTS: 
+         ▶ Amount of trust gained:    {kidnapper.trust}%       
+         ▶ The hostage is saved:      {victim.is_alive}
+         ▶ List of Casualties:        """
+    for i in range(len(casualties)):
+        text += casualties[i]
+        if not i == len(casualties)-1:
+            text += ", "
+    text += f"""\n
+        ---
+        TOTAL SCORE: {success}pts
+        
+        {result}
+        --------------------------------------------------------------------------------------------
+        """
+    print(f"{dedent(text)}")
+    press_continue("Press enter to finish game_")

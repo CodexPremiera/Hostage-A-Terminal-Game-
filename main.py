@@ -1,13 +1,15 @@
-# ---------------------------------------- GET MODULE ---------------------------------------- #
+# ---------------------------------------- THE IMPORT ---------------------------------------- #
+
+# MODULES
 from textwrap import dedent
 import characters
 import game
 
-# ---------------------------------------- CHARACTERS ---------------------------------------- #
+# CHARACTERS
 player = characters.player
 victim = characters.victim
 kidnapper = characters.kidnapper
-sniper = characters.sniper
+police = characters.police
 
 
 # ---------------------------------------- ACT SCRIPT ---------------------------------------- #
@@ -202,13 +204,11 @@ final_negotiation_sequence_dict = {
 compromise_sequence_dict = {
     'COMPROMISE': [+8, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                That is impossible Berthold. Let Annie go and I promise, you won't be hurt.
-                """
+                That is impossible Berthold. Let Annie go and I promise, you won't be hurt."""
         }],
     'REFUSE': [-8, {
         'YOU_1': """        🤵 NEGOTIATOR (YOU)
-                That is out of the question. Just put the gun down and let Annie go.
-                """
+                That is out of the question. Just put the gun down and let Annie go."""
         }]
     }
 
@@ -260,3 +260,9 @@ game.talk_to_kidnapper(instruction, final_negotiation_sequence_dict)
 # Compromise or refuse sequence
 instruction = f"Compromise or refuse on {kidnapper.name}'s demand?"
 game.talk_to_kidnapper(instruction, compromise_sequence_dict)
+
+# Finale Sequence
+game.final_decision()
+
+# Game Completion
+game.print_completion()
